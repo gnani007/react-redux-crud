@@ -46,8 +46,6 @@ const usersSlice = createSlice({
 	},
 })
 
-console.log()
-
 export const { userAdded, userUpdated, userDeleted } = usersSlice.actions
 
 export default usersSlice.reducer
