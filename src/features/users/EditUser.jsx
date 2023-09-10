@@ -6,14 +6,14 @@ import { userUpdated } from "./userSlice"
 
 const EditUser = () => {
 	const { pathname } = useLocation()
-	const userId = pathname.replace("/edit-user/", "")
+	const userId = parseInt(pathname.replace("/edit-user/", ""))
 
 	const user = useSelector((state) =>
-		state.users.find((user) => user.id === userId)
+		state.users.entities.find((user) => user.id === userId)
 	)
 
 	const dispatch = useDispatch()
-	const history = useNavigate()
+	const navigate = useNavigate()
 
 	const [name, setName] = useState(user.name)
 	const [email, setEmail] = useState(user.email)
@@ -33,13 +33,10 @@ const EditUser = () => {
 			)
 
 			setError(null)
-			history.push("/")
+			navigate("/")
 		} else {
 			setError("Fill in all fields")
 		}
-
-		setName("")
-		setEmail("")
 	}
 
 	return (

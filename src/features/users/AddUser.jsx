@@ -1,21 +1,26 @@
-import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import { userAdded } from "./userSlice"
-import { UseSelector } from "react-redux/es/hooks/useSelector"
 
 const AddUser = () => {
 	const dispatch = useDispatch()
-	const history = useNavigate()
 
-	const { name, setName } = useState("")
-	const { email, setEmail } = useState("")
-	const { error, setError } = useState("")
+	const navigate = useNavigate()
+
+	const [name, setName] = useState("")
+	const [email, setEmail] = useState("")
+	const [error, setError] = useState(null)
 
 	const handleName = (e) => setName(e.target.value)
 	const handleEmail = (e) => setEmail(e.target.value)
 
-	const usersAmount = useSelector((state) => state.users.length)
+	const { entities } = useSelector((state) => state.user)
+
+	const usersAmount = entities.length
+
+	console.log(usersAmount, "test usersAmount")
 
 	const handleClick = () => {
 		if (name && email) {
@@ -28,7 +33,7 @@ const AddUser = () => {
 			)
 
 			setError(null)
-			history.push("/")
+			navigate("/")
 		} else {
 			setError("Fill in all fields")
 		}
@@ -44,7 +49,7 @@ const AddUser = () => {
 			</div>
 			<div className="row">
 				<div className="three columns">
-					<label for="nameInput">Name</label>
+					<label htmlFor="nameInput">Name</label>
 					<input
 						className="u-full-width"
 						type="text"
@@ -53,7 +58,7 @@ const AddUser = () => {
 						onChange={handleName}
 						value={name}
 					/>
-					<label for="emailInput">Email</label>
+					<label htmlFor="emailInput">Email</label>
 					<input
 						className="u-full-width"
 						type="email"
@@ -63,7 +68,7 @@ const AddUser = () => {
 						value={email}
 					/>
 					{error && error}
-					<button className="button-primary" onClick={handleClick}>
+					<button onClick={handleClick} className="button-primary">
 						Add user
 					</button>
 				</div>

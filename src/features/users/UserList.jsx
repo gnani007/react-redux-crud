@@ -9,6 +9,8 @@ const UserList = () => {
 	const { entities } = useSelector((state) => state.user)
 	const loading = useSelector((state) => state.loading)
 
+	console.log(entities.length, "test entities")
+
 	const handleDelete = (id) => {
 		dispatch(userDeleted({ id }))
 	}
