@@ -8,15 +8,14 @@ const EditUser = () => {
 	const { pathname } = useLocation()
 	const userId = parseInt(pathname.replace("/edit-user/", ""))
 
-	const user = useSelector((state) =>
-		state.users.entities.find((user) => user.id === userId)
-	)
+	const { entities } = useSelector((state) => state.user)
+	const user1 = entities.find((user) => user.id === userId)
 
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const [name, setName] = useState(user.name)
-	const [email, setEmail] = useState(user.email)
+	const [name, setName] = useState(user1?.name)
+	const [email, setEmail] = useState(user1?.email)
 	const [error, setError] = useState(null)
 
 	const handleName = (e) => setName(e.target.value)

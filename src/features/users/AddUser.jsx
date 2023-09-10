@@ -18,9 +18,9 @@ const AddUser = () => {
 
 	const { entities } = useSelector((state) => state.user)
 
-	const usersAmount = entities.length
+	console.log(entities, "test entities")
 
-	console.log(usersAmount, "test usersAmount")
+	const usersAmount = entities.length
 
 	const handleClick = () => {
 		if (name && email) {
