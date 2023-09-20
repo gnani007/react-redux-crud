@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from "react-redux"
-
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { userAdded } from "./userSlice"
 
 const AddUser = () => {
 	const dispatch = useDispatch()
-
 	const navigate = useNavigate()
 
 	const [name, setName] = useState("")
@@ -17,8 +15,6 @@ const AddUser = () => {
 	const handleEmail = (e) => setEmail(e.target.value)
 
 	const { entities } = useSelector((state) => state.user)
-
-	console.log(entities, "test entities")
 
 	const usersAmount = entities.length
 

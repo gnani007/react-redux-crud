@@ -12,6 +12,22 @@ const usersSlice = createSlice({
 		entities: [],
 		loading: false,
 	},
+
+	extraReducers: {
+		[fetchUsers.pending]: (state, action) => {
+			state.loading = true
+		},
+		[fetchUsers.fulfilled]: (state, action) => {
+			state.loading = false
+			if (state.entities.length === 0) {
+				state.entities = [...state.entities, ...action.payload]
+			}
+		},
+		[fetchUsers.rejected]: (state, action) => {
+			state.loading = false
+		},
+	},
+
 	reducers: {
 		userAdded(state, action) {
 			state.entities.push(action.payload)
@@ -32,19 +48,9 @@ const usersSlice = createSlice({
 			}
 		},
 	},
-	extraReducers: {
-		[fetchUsers.pending]: (state, action) => {
-			state.loading = true
-		},
-		[fetchUsers.fulfilled]: (state, action) => {
-			state.loading = false
-			state.entities = [...state.entities, ...action.payload]
-		},
-		[fetchUsers.rejected]: (state, action) => {
-			state.loading = false
-		},
-	},
 })
+
+console.log(usersSlice.actions.userAdded, "test user slice actions")
 
 export const { userAdded, userUpdated, userDeleted } = usersSlice.actions
 
